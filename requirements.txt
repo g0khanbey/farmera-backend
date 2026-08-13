@@ -6,3 +6,4 @@ alembic==1.14.0
 pydantic-settings==2.7.1
 google-auth==2.40.3
 PyJWT==2.9.0
+requests==2.32.3
