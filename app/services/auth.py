@@ -6,7 +6,10 @@ from sqlalchemy.orm import Session
 
 from app.models.player import Player
 from app.models.player_identity import PlayerIdentity
-from app.services.google_auth import verify_google_id_token
+from app.services.google_auth import (
+    exchange_google_code,
+    verify_google_id_token,
+)
 
 
 def login_or_create_google_player(
@@ -70,3 +73,28 @@ def login_or_create_google_player(
         raise
 
     return player, True
+
+def login_or_create_google_player_from_code(
+    db: Session,
+    code: str,
+    code_verifier: str,
+    redirect_uri: str,
+) -> Tuple[Player, bool]:
+    google_token = exchange_google_code(
+        code=code,
+        code_verifier=code_verifier,
+        redirect_uri=redirect_uri,
+    )
+
+    return login_or_create_google_player(
+        db=db,
+        google_token=google_token,
+    )
+
+
+
+
+
+
+
+

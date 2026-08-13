@@ -25,3 +25,9 @@ class LoginResponse(BaseModel):
     expires_in: int
     is_new_player: bool
     player: PlayerResponse
+
+
+class GoogleCodeLoginRequest(BaseModel):
+    code: str
+    code_verifier: str
+    redirect_uri: str
