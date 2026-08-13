@@ -2,8 +2,9 @@ from fastapi import FastAPI
 from sqlalchemy import text
 
 from app.api.auth import router as auth_router
+from app.api.players import router as players_router
 from app.db.session import engine
-
+from app.api.inventory import router as inventory_router
 
 app = FastAPI(
     title="Farm Era API",
@@ -12,7 +13,8 @@ app = FastAPI(
 )
 
 app.include_router(auth_router)
-
+app.include_router(players_router)
+app.include_router(inventory_router)
 
 @app.get("/")
 def home():
